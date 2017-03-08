@@ -11,6 +11,9 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @SuppressWarnings("serial")
 public class Billiards extends JFrame {
@@ -65,7 +68,13 @@ public class Billiards extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Code is executed when start button is pushed
-
+			ExecutorService pool = Executors.newFixedThreadPool(N_BALL);
+ 			MoveBall thread;
+ 			ArrayList<MoveBall> threadList = new ArrayList<MoveBall>();
+ 			for (int i = 0; i < N_BALL; i++) {
+ 				thread = new MoveBall(balls[i]);
+ 				pool.execute(thread);
+ 				threadList.add(thread);
 		}
 	}
 
