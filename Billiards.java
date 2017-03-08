@@ -75,6 +75,7 @@ public class Billiards extends JFrame {
  				thread = new MoveBall(balls[i]);
  				pool.execute(thread);
  				threadList.add(thread);
+			}
 		}
 	}
 
