@@ -12,8 +12,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 @SuppressWarnings("serial")
 public class Billiards extends JFrame {
@@ -69,13 +68,12 @@ public class Billiards extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			
-			ExecutorService pool = Executors.newFixedThreadPool(N_BALL);
- 			MoveBall thread;
+			MoveBall thread;
  			board.setBalls(balls);
  			for (int i = 0; i < N_BALL; i++) {
- 				thread = new MoveBall(balls[i]);
- 				pool.execute(thread);
- 				threadList.add(thread);
+ 				thread = new MoveBall(balls[i],board);
+  				threadList.add(thread);
+ 				threadList.get(i).start();
 			}
 		}
 	}
