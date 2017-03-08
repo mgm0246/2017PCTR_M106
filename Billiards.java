@@ -27,6 +27,7 @@ public class Billiards extends JFrame {
 
 	private final int N_BALL = 9;
 	private Ball[] balls = new Ball[N_BALL];
+	ArrayList<MoveBall> threadList = new ArrayList<MoveBall>();
 
 	public Billiards() {
 
@@ -67,10 +68,10 @@ public class Billiards extends JFrame {
 	private class StartListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Code is executed when start button is pushed
+			
 			ExecutorService pool = Executors.newFixedThreadPool(N_BALL);
  			MoveBall thread;
- 			ArrayList<MoveBall> threadList = new ArrayList<MoveBall>();
+ 			board.setBalls(balls);
  			for (int i = 0; i < N_BALL; i++) {
  				thread = new MoveBall(balls[i]);
  				pool.execute(thread);
@@ -82,8 +83,9 @@ public class Billiards extends JFrame {
 	private class StopListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Code is executed when stop button is pushed
-
+			for(int i=0;i<N_BALL;i++){
+				threadList.get(i).interrupt();
+			}
 		}
 	}
 
