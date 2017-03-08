@@ -2,10 +2,10 @@ package p01;
  /**
   * Clase que sirve para poder mover la bola y hacer que esta rebote.
   * 
-  * @author Marcos García Muñoz
+  * @author Marcos GarcÃ­a MuÃ±oz
   * @author Mario de la Parte Izquierdo
   */
- public class MoveBall implements Runnable {
+ public class MoveBall extends Thread {
  
 	private Ball bola;
  	private Board tablero;
@@ -15,13 +15,21 @@ package p01;
  	 * 
  	 * @param bola
  	 */
- 	public MoveBall(Ball bola){
+ 	public MoveBall(Ball bola,Board tablero){
  		this.bola=bola;
+		this.tablero=tablero;
  	}
  	
  	public void run() {
- 		this.bola.move();
- 		this.bola.reflect();
- 		tablero.repaint();
+		try{
+		     while (true) {
+ 			this.bola.move();
+ 			this.bola.reflect();
+ 			tablero.repaint();
+			Thread.sleep(100);
+		     }
+			} catch (InterruptedException a) {
+			return;
+		}
  	}
  }
